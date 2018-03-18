@@ -23,7 +23,7 @@
         Write $03
     </a>
 
-    <a type="button" class="button_1_purple">
+    <a type="button" id="buttonSecond" onclick="writeSecond()" class="button_1_purple">
         Write $F3
     </a>
 
@@ -37,12 +37,9 @@
 </body>
 <script>
     var writeFirst = function () {
-        console.log("write first using ajax");
         $.ajax({
             type: "POST",
-            contentType: "application/json",
             url: "/writeFirst",
-            data: "",
             dataType: 'text',
             timeout: 600000,
             success: function (data) {
@@ -54,17 +51,29 @@
             }
         });
     };
-    var readData = function () {
-        console.log("reading process started");
+    var writeSecond = function () {
         $.ajax({
             type: "POST",
-            contentType: "application/json",
-            url: "/readData",
-            data: "",
+            url: "/writeSecond",
             dataType: 'text',
             timeout: 600000,
             success: function (data) {
-                $("#dataFromCounter").attr("value", "XD");
+                $("#buttonFirst").attr("value", data);
+                console.log(data);
+            },
+            error: function (e) {
+                console.log("Error during writeSecond calling");
+            }
+        });
+    };
+    var readData = function () {
+        $.ajax({
+            type: "POST",
+            url: "/readData",
+            dataType: 'text',
+            timeout: 600000,
+            success: function (data) {
+                $("#dataFromCounter").attr("value", data);
                 console.log(data);
             },
             error: function (e) {

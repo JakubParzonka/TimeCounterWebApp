@@ -8,18 +8,31 @@ import java.util.BitSet;
 public class CommandAddresses {
     private static Logger logger = LogManager.getLogger(TimeCounterWebAppApplication.class);
 
-    public static BitSet getSET_S_BitSetAddres() {
-        // 00000000
+    public static BitSet getWriteOfEnBitSetAddres() {
+        // $03
         BitSet bs = new BitSet();
+        bs.set(0,2, true);
+        bs.set(8,true);
+        bs.set(9,true);
+        for (int i = 10; i < 40; i++) {
+            bs.set(i, false);
+        }
+//        bs.set(39,true);
+        logger.info("Write of EN register => " + bs.toString());
+        return bs;
+    }
 
+    public static BitSet getReadOfEnBitSetAddres() {
+        // $F3
+        BitSet bs = new BitSet();
         bs.set(0,2, true);
         bs.set(4, 9, true);
-        for (int i = 10; i < 39; i++) {
+        for (int i = 10; i < 40; i++) {
 //            if (i % 2 == 0)
             bs.set(i, false);
         }
-        bs.set(39,true);
-        logger.info("CA => SET_S - " + bs.toString());
+
+        logger.info("Read of EN register => " + bs.toString());
         return bs;
     }
 
