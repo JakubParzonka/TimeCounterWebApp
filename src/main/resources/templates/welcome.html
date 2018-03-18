@@ -4,7 +4,8 @@
     <title>Time Counter Web App</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"
-          href="../static/css/main.css" />
+          href="../static/css/main.css"/>
+    <script th:src="@{/js/jquery.js}"></script>
 
 </head>
 <body>
@@ -18,7 +19,60 @@
         </h2>
     </div>
 
+    <a type="button" id="buttonFirst" onclick="writeFirst()" class="button_1_purple">
+        Write $03
+    </a>
+
+    <a type="button" class="button_1_purple">
+        Write $F3
+    </a>
+
+    <a type="button" id="buttonRead" onclick="readData()" class="button_1_purple">
+        Read Data
+    </a>
+    <input type="text" value="..." id="dataFromCounter"/>
+
 </div>
 
 </body>
+<script>
+    var writeFirst = function () {
+        console.log("write first using ajax");
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/writeFirst",
+            data: "",
+            dataType: 'text',
+            timeout: 600000,
+            success: function (data) {
+                $("#buttonFirst").attr("value", data);
+                console.log(data);
+            },
+            error: function (e) {
+                console.log("Error during writeFirst calling");
+            }
+        });
+    };
+    var readData = function () {
+        console.log("reading process started");
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/readData",
+            data: "",
+            dataType: 'text',
+            timeout: 600000,
+            success: function (data) {
+                $("#dataFromCounter").attr("value", "XD");
+                console.log(data);
+            },
+            error: function (e) {
+                console.log("Error during readData calling");
+            }
+        });
+    };
+
+
+</script>
 </html>
