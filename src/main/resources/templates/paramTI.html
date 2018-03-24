@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Parameters</title>
 </head>
 <body>
 <div class="control-group" th:fragment="paramTI">
@@ -62,50 +61,81 @@
         </label>
     </form>
 
-    <form id="clockInteralForm">
+    <form id="clockInternalForm">
         Clock internal:
         <label class="control control-radio">
             Yes
-            <input type="radio" name="clockInteral" checked="checked" value="true"/>
+            <input type="radio" name="clockInternal" checked="checked" value="true"/>
             <div class="control_indicator"></div>
         </label>
         <label class="control control-radio">
             No
-            <input type="radio" name="clockInteral" value="false"/>
+            <input type="radio" name="clockInternal" value="false"/>
             <div class="control_indicator"></div>
         </label>
     </form>
+    <!--// information bits-->
+    <!--<form id="calibratedForm">-->
+    <!--Is calibrated:-->
+    <!--<label class="control control-radio">-->
+    <!--Yes-->
+    <!--<input type="radio" name="calibrated" checked="checked" value="true"/>-->
+    <!--<div class="control_indicator"></div>-->
+    <!--</label>-->
+    <!--<label class="control control-radio">-->
+    <!--No-->
+    <!--<input type="radio" name="calibrated" value="false"/>-->
+    <!--<div class="control_indicator"></div>-->
+    <!--</label>-->
+    <!--</form>-->
 
-    <form id="calibratedForm">
-        Is calibrated:
-        <label class="control control-radio">
-            Yes
-            <input type="radio" name="calibrated" checked="checked" value="true"/>
-            <div class="control_indicator"></div>
-        </label>
-        <label class="control control-radio">
-            No
-            <input type="radio" name="calibrated" value="false"/>
-            <div class="control_indicator"></div>
-        </label>
-    </form>
+    <!--<form id="enEndForm">-->
+    <!--Is measure finished:-->
+    <!--<label class="control control-radio">-->
+    <!--Yes-->
+    <!--<input type="radio" name="enEnd" checked="checked" value="true"/>-->
+    <!--<div class="control_indicator"></div>-->
+    <!--</label>-->
+    <!--<label class="control control-radio">-->
+    <!--Yes-->
+    <!--<input type="radio" name="enEnd" value="false"/>-->
+    <!--<div class="control_indicator"></div>-->
+    <!--</label>-->
+    <!--</form>-->
 
-    <form id="enEndForm">
-        Is measure finished:
-        <label class="control control-radio">
-            Yes
-            <input type="radio" name="enEnd" checked="checked" value="true"/>
-            <div class="control_indicator"></div>
-        </label>
-        <label class="control control-radio">
-            Yes
-            <input type="radio" name="enEnd" value="false"/>
-            <div class="control_indicator"></div>
-        </label>
-    </form>
 
-    <a href="#" id="confirmSconfig">Save configuration</a>
 </div>
-
+<a class="btn" id="confirmSconfig" href="#">Save configuration</a>
+<p id="saveResultMessage"></p>
 </body>
+<script>
+    $("#confirmSconfig").click(function () {
+        var sData = {
+            startInput: $('input[name=startInput]:checked', '#startInputForm').val(),
+            startSlote: $('input[name=startSlote]:checked', '#startSloteForm').val(),
+            stopInput: $('input[name=stopInput]:checked', '#stopInputForm').val(),
+            stopSlote: $('input[name=stopSlote]:checked', '#stopSloteForm').val(),
+            clockInternal: $('input[name=clockInternal]:checked', '#clockInternalForm').val()
+        };
+
+        $.ajax({
+            url: "/saveTiParams",
+            type: "POST",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
+            cache: false,    //This will force requested pages not to be cached by the browser
+            processData: false, //To avoid making query String instead of JSON
+            data: JSON.stringify(sData),
+            success: function (data) {
+                $("#saveResultMessage").attr("value", "Saving success");
+            },
+            error: function (e) {
+                $("#saveResultMessage").attr("value", "Saving error => " + e);
+            }
+        })
+    });
+
+
+</script>
 </html>
