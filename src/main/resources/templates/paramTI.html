@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Parameters</title>
+</head>
+<body>
+<div class="control-group" th:fragment="paramTI">
+    <!--by default first value is true second is false-->
+    <form id="startInputForm">
+        Start input:
+        <label class="control control-radio">
+            A
+            <input type="radio" name="startInput" checked="checked" value="true"  />
+            <div class="control_indicator"></div>
+        </label>
+        <label class="control control-radio">
+            B
+            <input type="radio" name="startInput" value="false" />
+            <div class="control_indicator"></div>
+        </label>
+    </form>
+
+    <form id="startSloteForm">
+        Start slote:
+        <label class="control control-radio">
+            Rising
+            <input type="radio" name="startSlote" checked="checked" value="true"  />
+            <div class="control_indicator"></div>
+        </label>
+        <label class="control control-radio">
+            Falling
+            <input type="radio" name="startSlote" value="false" />
+            <div class="control_indicator"></div>
+        </label>
+    </form>
+
+    <form id="stopInputForm">
+        Stop input:
+        <label class="control control-radio">
+            A
+            <input type="radio" name="stopInput" checked="checked" value="true"  />
+            <div class="control_indicator"></div>
+        </label>
+        <label class="control control-radio">
+            B
+            <input type="radio" name="stopInput" value="false" />
+            <div class="control_indicator"></div>
+        </label>
+    </form>
+
+    <form id="stopSloteForm">
+        Stop slote:
+        <label class="control control-radio">
+            Rising
+            <input type="radio" name="stopSlote" checked="checked" value="true"  />
+            <div class="control_indicator"></div>
+        </label>
+        <label class="control control-radio">
+            Falling
+            <input type="radio" name="stopSlote" value="false" />
+            <div class="control_indicator"></div>
+        </label>
+    </form>
+
+    <form id="clockInteralForm">
+        Clock internal:
+        <label class="control control-radio">
+            Yes
+            <input type="radio" name="clockInteral" checked="checked" value="true" />
+            <div class="control_indicator"></div>
+        </label>
+        <label class="control control-radio">
+            No
+            <input type="radio" name="clockInteral" value="false" />
+            <div class="control_indicator"></div>
+        </label>
+    </form>
+
+    <form id="calibratedForm">
+        Is calibrated:
+        <label class="control control-radio">
+            Yes
+            <input type="radio" name="calibrated" checked="checked" value="true" />
+            <div class="control_indicator"></div>
+        </label>
+        <label class="control control-radio">
+            No
+            <input type="radio" name="calibrated" value="false" />
+            <div class="control_indicator"></div>
+        </label>
+    </form>
+
+    <form id="enEndForm">
+        Is measure finished:
+        <label class="control control-radio">
+            Yes
+            <input type="radio" name="enEnd" checked="checked" value="true"  />
+            <div class="control_indicator"></div>
+        </label>
+        <label class="control control-radio">
+            Yes
+            <input type="radio" name="enEnd" value="false" />
+            <div class="control_indicator"></div>
+        </label>
+    </form>
+
+    <a href="#" id="confirmSconfig">Save configuration</a>
+</div>
+
+</body>
+</html>

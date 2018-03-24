@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Time Counter T3300W web application</title>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/radio.css"/>
+</head>
+    <body>
+
+        <ul class="mode control-group" id="nav">
+            <!--<li><a href="timeIntervals.html">Time intervals</a></li>-->
+            <!--<li><a href="frequency.html">Frequency</a></li>-->
+            <form id="modeFrom">
+                Start input:
+                <label class="control control-radio">
+                    Time intervals
+                    <input type="radio" name="mode" checked="checked"  value="true" />
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    Frequency
+                    <input type="radio" name="mode"  value="false" />
+                    <div class="control_indicator"></div>
+                </label>
+            </form>
+        </ul>
+------------------------------------------------------
+        <div id="content">
+            <!--<div th:replace="paramTI.html :: paramTI"></div>-->
+
+
+        </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/main.js"></script>
+    </body>
+</html>

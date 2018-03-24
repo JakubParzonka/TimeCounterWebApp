@@ -41,7 +41,7 @@ public class Connection {
      * @return DataOutputStream
      * @throws IOException
      */
-    DataOutputStream getOutputDataStream() throws IOException {
+    public DataOutputStream getOutputDataStream() throws IOException {
         return new DataOutputStream(counterSocket.getOutputStream());
     }
 
@@ -49,7 +49,7 @@ public class Connection {
      * @return DataInputStream
      * @throws IOException
      */
-    DataInputStream getInputDataStream() throws IOException {
+    public DataInputStream getInputDataStream() throws IOException {
         return new DataInputStream(counterSocket.getInputStream());
     }
 

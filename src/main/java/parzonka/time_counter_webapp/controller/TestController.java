@@ -1,4 +1,4 @@
-package parzonka.time_counter_webapp;
+package parzonka.time_counter_webapp.controller;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import parzonka.time_counter_webapp.CommandAddresses;
+import parzonka.time_counter_webapp.Connection;
+import parzonka.time_counter_webapp.TimeCounterWebAppApplication;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;

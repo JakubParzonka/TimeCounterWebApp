@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Time Counter Web App</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../static/css/main.css"/>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/test.js}"></script>
+</head>
+    <body>
+        <div class="container">
+            <div class="starter-template">
+                <h1>Time Counter Controller Web App</h1>
+                <h2>
+                    <span th:text="'Message: ' + ${welcome}"></span>
+                </h2>
+            </div>
+            <a type="button" id="buttonStart" onclick="startAndReset()" class="button_1_purple">
+                Start
+            </a>
+            <a type="button" id="buttonFirst" onclick="writeFirst()" class="button_1_purple">
+                Write $03
+            </a>
+            <a type="button" id="buttonSecond" onclick="writeSecond()" class="button_1_purple">
+                Write $F3
+            </a>
+            <a type="button" id="buttonRead" onclick="readData()" class="button_1_purple">
+                Read Data
+            </a>
+            <input type="text" value="..." id="dataFromCounter"/>
+        </div>
+    </body>
+</html>
