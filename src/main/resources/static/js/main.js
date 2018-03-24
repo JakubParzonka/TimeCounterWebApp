@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $("#confirmSconfig").click(function () {
         console.log("startInput => " + $('input[name=startInput]:checked', '#startInputForm').val());
         console.log("startSlote => " + $('input[name=startSlote]:checked', '#startSloteForm').val());
@@ -9,22 +10,25 @@ $(document).ready(function () {
         console.log("enEnd => " + $('input[name=enEnd]:checked', '#enEndForm').val());
     });
 
+    // clearing modes page on start
+    $('#content').empty();
 
     $("#modeFrom").on('change', function () {
         var mode = $('input[name=mode]:checked', '#modeFrom').val();
-        console.log(mode);
+        var contentDiv = $('#content');
         if (mode === 'true') {
-            $('#content').replaceWith("paramTi.html");
-            console.log("ti");
+            contentDiv.load("paramTi.html");
         } else if (mode === 'false') {
-            $('#content').replaceWith();
-            console.log("f");
+            contentDiv.load("paramF.html");
         } else {
             console.log("tif");
         }
     });
 
-
+    $("p").click(function () {
+        var htmlString = $(this).html();
+        $(this).text(htmlString);
+    });
 });
 
 
