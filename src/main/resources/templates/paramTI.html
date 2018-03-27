@@ -109,7 +109,7 @@
         <!--</label>-->
         <!--</form>-->
 
-        <a class="btn" id="confirmSconfig" href="#">Save configuration</a>
+        <a class="btn" id="confirmCtrlConfig" href="#">Save configuration</a>
         <p id="saveResultMessage">:)</p>
         <a class="btn" id="readFromSregister" href="#">Read configuration</a>
         <p id="readResultMessage">:)</p>
@@ -161,14 +161,22 @@
                     <div class="control_indicator"></div>
                 </label>
             </form>
-
         </div>
+
+        <a class="btn" id="confirmSconfig" href="#">Save configuration</a>
+        <p id="saveCtrlMessage">:)</p>
+        <!--<a class="btn" id="readFromSregister" href="#">Read configuration</a>-->
+        <!--<p id="readResultMessage">:)</p>-->
+
     </div>
 
 </div>
 
 </body>
 <script>
+    /**
+     *
+     */
     $("#confirmSconfig").click(function () {
         var sData = {
             startInput: $('input[name=startInput]:checked', '#startInputForm').val(),
@@ -198,6 +206,36 @@
         })
     });
 
+
+    /**
+     *
+     */
+    $("#confirmCtrlConfig").click(function () {
+        var ctrlData = {
+            timeRange: $('input[name=timeRange]:checked', '#timeRangeForm').val(),
+            entrance: $('input[name=entrance]:checked', '#entranceForm').val()
+        };
+
+        $.ajax({
+            url: "/saveCtrlParams",
+            type: "POST",
+            dataType: 'text',
+            contentType: 'application/json',
+            cache: false,    //This will force requested pages not to be cached by the browser
+            processData: false, //To avoid making query String instead of JSON
+            data: JSON.stringify(ctrlData),
+            success: function (data) {
+                $("#saveCtrlMessage").text(data);
+            },
+            error: function (e) {
+                $("#saveCtrlMessage").text("Saving error => " + e);
+            }
+        })
+    });
+
+    /**
+     *
+     */
     $("#readFromSregister").click(function () {
         $.ajax({
             url: "/readSregParams",
