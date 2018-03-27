@@ -1,37 +1,36 @@
 package parzonka.time_counter_webapp.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class ParameterCtrl {
     /**
      * TODO dopisać komentarze do pół
      */
-    private int timeRange;
+    @Getter
+    @Setter
+    private String timeRange;
 
     /**
      * TODO jw. oraz czy nie da sie jakoś lepiej zreprezentować tego
      */
-    private int entrance;
+    @Getter
+    @Setter
+    private String entrance;
 
     public ParameterCtrl() {
     }
 
-    public ParameterCtrl(int timeRange, int entrance) {
+    public ParameterCtrl(String timeRange, String entrance) {
         this.timeRange = timeRange;
         this.entrance = entrance;
     }
 
-    public int getTimeRange() {
-        return timeRange;
-    }
-
-    public void setTimeRange(int timeRange) {
-        this.timeRange = timeRange;
-    }
-
-    public int getEntrance() {
-        return entrance;
-    }
-
-    public void setEntrance(int entrance) {
-        this.entrance = entrance;
+    @Override
+    public String toString() {
+        return "ParameterCtrl{" +
+                "timeRange=" + timeRange +
+                ", entrance=" + entrance +
+                '}';
     }
 }

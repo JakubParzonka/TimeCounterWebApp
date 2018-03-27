@@ -2,8 +2,10 @@ package parzonka.time_counter_webapp;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import parzonka.time_counter_webapp.service.CounterService;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -25,17 +27,22 @@ public class Connection {
     private Socket counterSocket;
     public static final int TIMEOUT = 10;
 
+    @Autowired
+    CounterService counterService;
+
     @Bean
     private Socket prepareSocket() {
         try {
             counterSocket = new Socket(InetAddress.getByName(IP_ADDRESS), PORT_NUMBER);
             counterSocket.setKeepAlive(true);
+            counterService.startCounter();
             logger.info("Socket connected");
         } catch (IOException e) {
             logger.error("Socket exception", e);
         }
         return counterSocket;
     }
+
 
     /**
      * @return DataOutputStream

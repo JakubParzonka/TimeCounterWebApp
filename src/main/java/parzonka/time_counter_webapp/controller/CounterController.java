@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import parzonka.time_counter_webapp.CommandAddresses;
 import parzonka.time_counter_webapp.model.MessageWrapper;
 import parzonka.time_counter_webapp.model.ParameterCtrl;
-import parzonka.time_counter_webapp.service.CounterService;
 import parzonka.time_counter_webapp.model.ParameterS;
+import parzonka.time_counter_webapp.model.ParameterWrapper;
+import parzonka.time_counter_webapp.service.CounterService;
 import parzonka.time_counter_webapp.utils.CommandUtill;
 
 @Controller
@@ -35,20 +36,26 @@ public class CounterController {
         return "paramF";
     }
 
-    @RequestMapping(value = "saveSregParams", method = RequestMethod.POST)
+    @RequestMapping(value = "saveParams", method = RequestMethod.POST)
     public @ResponseBody
-    String saveSregParams(@RequestBody ParameterS paramS) {
-        if (paramS != null) {
-            counterService.sendData(new MessageWrapper(CommandUtill.mapCommand(
-                    CommandAddresses.getWriteSregAddr(), paramS).toByteArray()));
-            System.out.println(paramS.toString());
+    String saveParams(@RequestBody ParameterWrapper parameterWrapper) {
+        if (parameterWrapper != null) {
+            System.out.println(parameterWrapper.toString());
+            ParameterS parameterS = new ParameterS(parameterWrapper.getStartInput(), parameterWrapper.getStartSlote(),
+                    parameterWrapper.getStopInput(), parameterWrapper.getStopSlote(), parameterWrapper.getClockInternal());
+            counterService.sendData(new MessageWrapper(CommandUtill.mapSregCommand(
+                    CommandAddresses.getWriteSregAddr(), parameterS).toByteArray()));
+
+            ParameterCtrl parameterCtrl = new ParameterCtrl(parameterWrapper.getTimeRange(), parameterWrapper.getEntrance());
+            counterService.sendData(new MessageWrapper(CommandUtill.mapCtrlCommand(
+                    CommandAddresses.getWriteCtrlAddr(), parameterCtrl).toByteArray()));
             return "Success!";
         } else {
             return "Failure saving params";
         }
     }
 
-    @RequestMapping(value = "saveCtrlParams", method = RequestMethod.POST)
+ /*   @RequestMapping(value = "saveCtrlParams", method = RequestMethod.POST)
     public @ResponseBody
     String saveCtrlParams(@RequestBody ParameterCtrl paramCtrl) {
         if (paramCtrl != null) {
@@ -59,13 +66,13 @@ public class CounterController {
         } else {
             return "Failure saving params";
         }
-    }
+    }*/
 
-   @RequestMapping(value = "readSregParams", method = RequestMethod.POST)
+    @RequestMapping(value = "readSregParams", method = RequestMethod.POST)
     public @ResponseBody
     String readSregParams() {
-            counterService.sendData(new MessageWrapper(CommandAddresses.getReadSregAddr().toByteArray()));
-            return "Data from counter: " + counterService.readData();
+        counterService.sendData(new MessageWrapper(CommandAddresses.getReadSregAddr().toByteArray()));
+        return "Data from counter: " + counterService.readData();
     }
 
 }

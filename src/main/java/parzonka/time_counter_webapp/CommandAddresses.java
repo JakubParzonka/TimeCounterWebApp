@@ -65,13 +65,14 @@ public class CommandAddresses {
     }
 
     /**
-     *
      * @return
      */
     public static BitSet getWriteCtrlAddr() {
         // $04
         BitSet bs = new BitSet();
         bs.set(2, true);
+        bs.set(13, true);
+        bs.set(39, true);
         logger.info("SET_CTRL register => " + bs.toString());
         return bs;
     }
