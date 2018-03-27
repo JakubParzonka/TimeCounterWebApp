@@ -1,112 +1,172 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/radio.css"/>
+    <script src="js/jquery.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
 <div class="control-group" th:fragment="paramTI">
-    <!--by default first value is true second is false-->
-    <form id="startInputForm">
-        Start input:
-        <label class="control control-radio">
-            A
-            <input type="radio" name="startInput" checked="checked" value="true"/>
-            <div class="control_indicator"></div>
-        </label>
-        <label class="control control-radio">
-            B
-            <input type="radio" name="startInput" value="false"/>
-            <div class="control_indicator"></div>
-        </label>
-    </form>
 
-    <form id="startSloteForm">
-        Start slote:
-        <label class="control control-radio">
-            Rising
-            <input type="radio" name="startSlote" checked="checked" value="true"/>
-            <div class="control_indicator"></div>
-        </label>
-        <label class="control control-radio">
-            Falling
-            <input type="radio" name="startSlote" value="false"/>
-            <div class="control_indicator"></div>
-        </label>
-    </form>
+    <div id="sParamsDiv">
+        <!--by default first value is true second is false-->
+        <form id="startInputForm">
+            Start input:
+            <label class="control control-radio">
+                A
+                <input type="radio" name="startInput" checked="checked" value="true"/>
+                <div class="control_indicator"></div>
+            </label>
+            <label class="control control-radio">
+                B
+                <input type="radio" name="startInput" value="false"/>
+                <div class="control_indicator"></div>
+            </label>
+        </form>
 
-    <form id="stopInputForm">
-        Stop input:
-        <label class="control control-radio">
-            A
-            <input type="radio" name="stopInput" value="true"/>
-            <div class="control_indicator"></div>
-        </label>
-        <label class="control control-radio">
-            B
-            <input type="radio" name="stopInput" checked="checked" value="false"/>
-            <div class="control_indicator"></div>
-        </label>
-    </form>
+        <form id="startSloteForm">
+            Start slote:
+            <label class="control control-radio">
+                Rising
+                <input type="radio" name="startSlote" checked="checked" value="true"/>
+                <div class="control_indicator"></div>
+            </label>
+            <label class="control control-radio">
+                Falling
+                <input type="radio" name="startSlote" value="false"/>
+                <div class="control_indicator"></div>
+            </label>
+        </form>
 
-    <form id="stopSloteForm">
-        Stop slote:
-        <label class="control control-radio">
-            Rising
-            <input type="radio" name="stopSlote" checked="checked" value="true"/>
-            <div class="control_indicator"></div>
-        </label>
-        <label class="control control-radio">
-            Falling
-            <input type="radio" name="stopSlote" value="false"/>
-            <div class="control_indicator"></div>
-        </label>
-    </form>
+        <form id="stopInputForm">
+            Stop input:
+            <label class="control control-radio">
+                A
+                <input type="radio" name="stopInput" value="true"/>
+                <div class="control_indicator"></div>
+            </label>
+            <label class="control control-radio">
+                B
+                <input type="radio" name="stopInput" checked="checked" value="false"/>
+                <div class="control_indicator"></div>
+            </label>
+        </form>
 
-    <form id="clockInternalForm">
-        Clock internal:
-        <label class="control control-radio">
-            Yes
-            <input type="radio" name="clockInternal" checked="checked" value="true"/>
-            <div class="control_indicator"></div>
-        </label>
-        <label class="control control-radio">
-            No
-            <input type="radio" name="clockInternal" value="false"/>
-            <div class="control_indicator"></div>
-        </label>
-    </form>
-    <!--// information bits-->
-    <!--<form id="calibratedForm">-->
-    <!--Is calibrated:-->
-    <!--<label class="control control-radio">-->
-    <!--Yes-->
-    <!--<input type="radio" name="calibrated" checked="checked" value="true"/>-->
-    <!--<div class="control_indicator"></div>-->
-    <!--</label>-->
-    <!--<label class="control control-radio">-->
-    <!--No-->
-    <!--<input type="radio" name="calibrated" value="false"/>-->
-    <!--<div class="control_indicator"></div>-->
-    <!--</label>-->
-    <!--</form>-->
+        <form id="stopSloteForm">
+            Stop slote:
+            <label class="control control-radio">
+                Rising
+                <input type="radio" name="stopSlote" checked="checked" value="true"/>
+                <div class="control_indicator"></div>
+            </label>
+            <label class="control control-radio">
+                Falling
+                <input type="radio" name="stopSlote" value="false"/>
+                <div class="control_indicator"></div>
+            </label>
+        </form>
 
-    <!--<form id="enEndForm">-->
-    <!--Is measure finished:-->
-    <!--<label class="control control-radio">-->
-    <!--Yes-->
-    <!--<input type="radio" name="enEnd" checked="checked" value="true"/>-->
-    <!--<div class="control_indicator"></div>-->
-    <!--</label>-->
-    <!--<label class="control control-radio">-->
-    <!--Yes-->
-    <!--<input type="radio" name="enEnd" value="false"/>-->
-    <!--<div class="control_indicator"></div>-->
-    <!--</label>-->
-    <!--</form>-->
+        <form id="clockInternalForm">
+            Clock internal:
+            <label class="control control-radio">
+                Yes
+                <input type="radio" name="clockInternal" checked="checked" value="true"/>
+                <div class="control_indicator"></div>
+            </label>
+            <label class="control control-radio">
+                No
+                <input type="radio" name="clockInternal" value="false"/>
+                <div class="control_indicator"></div>
+            </label>
+        </form>
+        <!--// information bits-->
+        <!--<form id="calibratedForm">-->
+        <!--Is calibrated:-->
+        <!--<label class="control control-radio">-->
+        <!--Yes-->
+        <!--<input type="radio" name="calibrated" checked="checked" value="true"/>-->
+        <!--<div class="control_indicator"></div>-->
+        <!--</label>-->
+        <!--<label class="control control-radio">-->
+        <!--No-->
+        <!--<input type="radio" name="calibrated" value="false"/>-->
+        <!--<div class="control_indicator"></div>-->
+        <!--</label>-->
+        <!--</form>-->
 
+        <!--<form id="enEndForm">-->
+        <!--Is measure finished:-->
+        <!--<label class="control control-radio">-->
+        <!--Yes-->
+        <!--<input type="radio" name="enEnd" checked="checked" value="true"/>-->
+        <!--<div class="control_indicator"></div>-->
+        <!--</label>-->
+        <!--<label class="control control-radio">-->
+        <!--Yes-->
+        <!--<input type="radio" name="enEnd" value="false"/>-->
+        <!--<div class="control_indicator"></div>-->
+        <!--</label>-->
+        <!--</form>-->
+
+        <a class="btn" id="confirmSconfig" href="#">Save configuration</a>
+        <p id="saveResultMessage">:)</p>
+        <a class="btn" id="readFromSregister" href="#">Read configuration</a>
+        <p id="readResultMessage">:)</p>
+
+    </div>
+
+    <div id="ctrlParamsDiv">
+        <div id="timeRange">
+            <form id="timeRangeForm">
+                Time range:
+                <label class="control control-radio">
+                    1s
+                    <input type="radio" name="timeRange" checked="checked" value="1"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    10s
+                    <input type="radio" name="timeRange" value="10"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    100s
+                    <input type="radio" name="timeRange" value="100"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    4400s
+                    <input type="radio" name="timeRange" value="4400"/>
+                    <div class="control_indicator"></div>
+                </label>
+            </form>
+        </div>
+        <div id="entrance">
+            <form id="entranceForm">
+                Entrance:
+                <label class="control control-radio">
+                    A -> A
+                    <input type="radio" name="entrance" value="0"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    B -> B
+                    <input type="radio" name="entrance" value="1"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    A -> B
+                    <input type="radio" name="entrance" checked="checked" value="3"/>
+                    <div class="control_indicator"></div>
+                </label>
+            </form>
+
+        </div>
+    </div>
 
 </div>
-<a class="btn" id="confirmSconfig" href="#">Save configuration</a>
-<p id="saveResultMessage"></p>
+
 </body>
 <script>
     $("#confirmSconfig").click(function () {
@@ -119,19 +179,36 @@
         };
 
         $.ajax({
-            url: "/saveTiParams",
+            url: "/saveSregParams",
             type: "POST",
-            dataType: 'JSON',
+            dataType: 'text',
             contentType: 'application/json',
-            async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
             cache: false,    //This will force requested pages not to be cached by the browser
             processData: false, //To avoid making query String instead of JSON
             data: JSON.stringify(sData),
             success: function (data) {
-                $("#saveResultMessage").attr("value", "Saving success");
+//                $("#saveResultMessage").attr("value", "Saving success");
+                console.log("tamagiochi");
+
+                $("#saveResultMessage").text(data);
             },
             error: function (e) {
-                $("#saveResultMessage").attr("value", "Saving error => " + e);
+                $("#saveResultMessage").text("Saving error => " + e);
+            }
+        })
+    });
+
+    $("#readFromSregister").click(function () {
+        $.ajax({
+            url: "/readSregParams",
+            type: "POST",
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (data) {
+                $("#readResultMessage").text("Reading success: " + data);
+            },
+            error: function (e) {
+                $("#readResultMessage").text("Reading error: " + e);
             }
         })
     });
