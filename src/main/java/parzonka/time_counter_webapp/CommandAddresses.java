@@ -84,6 +84,7 @@ public class CommandAddresses {
         // $F0
         BitSet bs = new BitSet();
         bs.set(4, 9, true);
+        bs.set(39, true);
         logger.info("RD_F_DATA register => " + bs.toString());
         return bs;
     }

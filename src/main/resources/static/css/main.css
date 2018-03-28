@@ -72,3 +72,19 @@ h2 {
     display: inline-block;
 }
 
+#result {
+    display: inline-block;
+    float: right;
+    top: 0;
+    left: 0;
+}
+
+#modeFrom {
+    display: inline-block;
+}
+
+#measButtons {
+    position: absolute;
+    display: inline-block;
+    float: right;
+}
