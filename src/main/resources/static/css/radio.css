@@ -10,9 +10,6 @@
     font-size: 13px;
 }
 
-.control-group {
-    display: flex;
-}
 
 .control input {
     position: absolute;

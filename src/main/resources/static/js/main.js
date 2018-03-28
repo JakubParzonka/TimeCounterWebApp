@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     $('#content').load("paramTI.html");
+
     //TODO zaznaczony domyślnie radiobutton dla Ti
     $("#modeFrom").on('change', function () {
         var mode = $('input[name=mode]:checked', '#modeFrom').val();
