@@ -26,6 +26,7 @@ $(document).ready(function () {
             // data: JSON.stringify(params),
             success: function (data) {
                 $("#resultValue").text(data);
+                console.log("startMeasurement: " + data);
             },
             error: function (e) {
                 $("#resultValue").text("Wrong value: " + e);

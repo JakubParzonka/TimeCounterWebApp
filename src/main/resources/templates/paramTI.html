@@ -203,7 +203,7 @@
             data: JSON.stringify(params),
             success: function (data) {
 //                $("#saveResultMessage").attr("value", "Saving success");
-                console.log("tamagiochi");
+                console.log("saveParams: " + data);
                 $("#saveResultMessage").text(data);
             },
             error: function (e) {
