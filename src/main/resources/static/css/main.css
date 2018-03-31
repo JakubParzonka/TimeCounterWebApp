@@ -58,7 +58,7 @@ h2 {
     text-decoration: none;
 }
 
-#params, #paramVisibleBtn {
+#params, #paramVisibleBtn, #confirmButton {
     float: left;
     clear: left;
 }

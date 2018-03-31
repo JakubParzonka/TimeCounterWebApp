@@ -1,13 +1,14 @@
-package parzonka.time_counter_webapp;
+package parzonka.time_counter_webapp.utils;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import parzonka.time_counter_webapp.TimeCounterWebAppApplication;
 import parzonka.time_counter_webapp.model.MessageWrapper;
 
 import java.util.BitSet;
 
 
-public class CommandAddresses {
+public class CommandAddrUtil {
 
     private static Logger logger = LogManager.getLogger(TimeCounterWebAppApplication.class);
     private static final byte[] resetAndCalibration = {0x00, 0x00, 0x00, 0x00, 0x00};

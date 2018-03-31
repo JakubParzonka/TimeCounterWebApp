@@ -29,19 +29,19 @@ public class Connection {
 
     @Autowired
     CounterService counterService;
-
-    @Bean
-    private Socket prepareSocket() {
-        try {
-            counterSocket = new Socket(InetAddress.getByName(IP_ADDRESS), PORT_NUMBER);
-            counterSocket.setKeepAlive(true);
-            counterService.startCounter();
-            logger.info("Socket connected");
-        } catch (IOException e) {
-            logger.error("Socket exception", e);
-        }
-        return counterSocket;
-    }
+//
+//    @Bean
+//    private Socket prepareSocket() {
+//        try {
+//            counterSocket = new Socket(InetAddress.getByName(IP_ADDRESS), PORT_NUMBER);
+//            counterSocket.setKeepAlive(true);
+//            counterService.startCounter();
+//            logger.info("Socket connected");
+//        } catch (IOException e) {
+//            logger.error("Socket exception", e);
+//        }
+//        return counterSocket;
+//    }
 
 
     /**

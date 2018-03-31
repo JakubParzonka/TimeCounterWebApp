@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import parzonka.time_counter_webapp.CommandAddresses;
+import parzonka.time_counter_webapp.model.FrequencyParametersWrapper;
 import parzonka.time_counter_webapp.model.MessageWrapper;
-import parzonka.time_counter_webapp.model.ParameterWrapper;
+import parzonka.time_counter_webapp.model.TimeParametersWrapper;
 import parzonka.time_counter_webapp.service.CounterService;
+import parzonka.time_counter_webapp.utils.CommandAddrUtil;
 
 @Controller
 public class CounterController {
@@ -33,11 +34,21 @@ public class CounterController {
         return "paramF";
     }
 
-    @RequestMapping(value = "saveParams", method = RequestMethod.POST)
+    @RequestMapping(value = "saveTimeParams", method = RequestMethod.POST)
     public @ResponseBody
-    String saveParams(@RequestBody ParameterWrapper parameterWrapper) {
-        if (parameterWrapper != null) {
-            counterService.saveStartingParams(parameterWrapper);
+    String saveTimeParams(@RequestBody TimeParametersWrapper timeParametersWrapper) {
+        if (timeParametersWrapper != null) {
+            counterService.saveTimeStartingParams(timeParametersWrapper);
+            return "Success!";
+        } else {
+            return "Failure saving params";
+        }
+    }
+    @RequestMapping(value = "saveFrequencyParams", method = RequestMethod.POST)
+    public @ResponseBody
+    String saveFrequencyParams(@RequestBody FrequencyParametersWrapper frequencyParametersWrapper) {
+        if (frequencyParametersWrapper != null) {
+            counterService.saveFrequencyStartingParams(frequencyParametersWrapper);
             return "Success!";
         } else {
             return "Failure saving params";
@@ -46,16 +57,16 @@ public class CounterController {
 
     @RequestMapping(value = "/startMeasurement", method = RequestMethod.POST)
     public @ResponseBody
-    String startMeasurement() {
+    String startMeasurement() throws InterruptedException {
         counterService.startMeasrumentProcess();
-        return counterService.readData();
+        return "";//counterService.readData();
     }
 
     @RequestMapping(value = "readSregParams", method = RequestMethod.POST)
     public @ResponseBody
     String readSregParams() {
-        counterService.sendData(new MessageWrapper(CommandAddresses.getReadSregAddr().toByteArray()));
-        return "Data from counter: " + counterService.readData();
+        counterService.sendData(new MessageWrapper(CommandAddrUtil.getReadSregAddr().toByteArray()));
+        return "S register data: " + counterService.readData();
     }
 
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import parzonka.time_counter_webapp.CommandAddresses;
+import parzonka.time_counter_webapp.utils.CommandAddrUtil;
 import parzonka.time_counter_webapp.Connection;
 import parzonka.time_counter_webapp.TimeCounterWebAppApplication;
 import parzonka.time_counter_webapp.service.CounterService;
@@ -37,7 +37,7 @@ public class TestController {
     @RequestMapping(value = "/startAndReset", method = RequestMethod.POST)
     private @ResponseBody
     String startAndReset() {
-        counterService.sendData(CommandAddresses.getWriteResetAndACalibrationAddr());
+        counterService.sendData(CommandAddrUtil.getWriteResetAndACalibrationAddr());
         return "Started and calibrated";
     }
 

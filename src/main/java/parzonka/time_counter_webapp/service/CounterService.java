@@ -3,22 +3,21 @@ package parzonka.time_counter_webapp.service;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import parzonka.time_counter_webapp.CommandAddresses;
 import parzonka.time_counter_webapp.Connection;
 import parzonka.time_counter_webapp.TimeCounterWebAppApplication;
+import parzonka.time_counter_webapp.model.FrequencyParametersWrapper;
 import parzonka.time_counter_webapp.model.MessageWrapper;
 import parzonka.time_counter_webapp.model.ParameterCtrl;
-import parzonka.time_counter_webapp.model.ParameterS;
-import parzonka.time_counter_webapp.model.ParameterWrapper;
+import parzonka.time_counter_webapp.model.TimeParametersWrapper;
+import parzonka.time_counter_webapp.utils.CommandAddrUtil;
 import parzonka.time_counter_webapp.utils.CommandUtill;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.BitSet;
 
 @Service
 public class CounterService {
@@ -40,7 +39,7 @@ public class CounterService {
      * Restart and calibrate counter
      */
     public void startCounter() {
-        sendData(CommandAddresses.getWriteResetAndACalibrationAddr());
+        sendData(CommandAddrUtil.getWriteResetAndACalibrationAddr());
     }
 
     /**
@@ -49,15 +48,15 @@ public class CounterService {
      * @param messageWrapper
      */
     public void sendData(MessageWrapper messageWrapper) {
-        try {
-            // TODO stworzyć nowy exception jakiś dla npe
-            DataOutputStream output = new DataOutputStream(connection.getOutputDataStream());
-            output.write(messageWrapper.getMessage(), 0, messageWrapper.getLength());
-            output.flush();
-            logger.info("Message send successful: " + Arrays.toString(messageWrapper.getMessage()));
-        } catch (IOException e) {
-            logger.error("Sending operation failed", e);
-        }
+//        try {
+//            // TODO stworzyć nowy exception jakiś dla npe
+//            DataOutputStream output = new DataOutputStream(connection.getOutputDataStream());
+//            output.write(messageWrapper.getMessage(), 0, messageWrapper.getLength());
+//            output.flush();
+        logger.info("Message send successful: " + Arrays.toString(messageWrapper.getMessage()));
+//        } catch (IOException e) {
+//            logger.error("Sending operation failed", e);
+//        }
     }
 
     /**
@@ -86,23 +85,38 @@ public class CounterService {
     }
 
     /**
-     * Send starting parameters to counter
+     * Send starting time parameters to counter
      *
-     * @param parameterWrapper
+     * @param timeParametersWrapper
      */
-    public void saveStartingParams(ParameterWrapper parameterWrapper) {
-
-        System.out.println(parameterWrapper.toString());
-
-        ParameterS parameterS = new ParameterS(parameterWrapper.getStartInput(), parameterWrapper.getStartSlote(),
-                parameterWrapper.getStopInput(), parameterWrapper.getStopSlote(), parameterWrapper.getClockInternal());
+    public void saveTimeStartingParams(TimeParametersWrapper timeParametersWrapper) {
+        logger.info(timeParametersWrapper.toString());
         MessageWrapper sWrapper = new MessageWrapper(CommandUtill.mapSregCommand(
-                CommandAddresses.getWriteSregAddr(), parameterS).toByteArray());
-            sendData(sWrapper);
+                CommandAddrUtil.getWriteSregAddr(), timeParametersWrapper.getStartInput(),timeParametersWrapper.getStartSlote(),
+                timeParametersWrapper.getStopInput(),timeParametersWrapper.getStopSlote(),timeParametersWrapper.getClockInternal()).toByteArray());
+        sendData(sWrapper);
 
-        ParameterCtrl parameterCtrl = new ParameterCtrl(parameterWrapper.getTimeRange(), parameterWrapper.getEntrance());
-        MessageWrapper ctrlWrapper = new MessageWrapper(CommandUtill.mapCtrlCommand(
-                CommandAddresses.getWriteCtrlAddr(), parameterCtrl).toByteArray());
+        ParameterCtrl parameterCtrl = new ParameterCtrl(timeParametersWrapper.getTimeRange(), timeParametersWrapper.getEntrance());
+        MessageWrapper ctrlWrapper = new MessageWrapper(CommandUtill.mapTimeCtrlCommand(
+                CommandAddrUtil.getWriteCtrlAddr(), parameterCtrl).toByteArray());
+        sendData(ctrlWrapper);
+    }
+
+    /**
+     *  Send starting frequency parameters to counter
+     *
+     * @param frequencyParametersWrapper
+     */
+    public void saveFrequencyStartingParams(FrequencyParametersWrapper frequencyParametersWrapper) {
+        logger.info(frequencyParametersWrapper.toString());
+        MessageWrapper sWrapper = new MessageWrapper(CommandUtill.mapSregCommand(
+                CommandAddrUtil.getWriteSregAddr(), frequencyParametersWrapper.getStartInput(),frequencyParametersWrapper.getStartSlote(),
+                frequencyParametersWrapper.getStopInput(),frequencyParametersWrapper.getStopSlote(),frequencyParametersWrapper.getClockInternal()).toByteArray());
+        sendData(sWrapper);
+
+        ParameterCtrl parameterCtrl = new ParameterCtrl(frequencyParametersWrapper.getMeasTime(), frequencyParametersWrapper.getInputEnt());
+        MessageWrapper ctrlWrapper = new MessageWrapper(CommandUtill.mapFrequencyCtrlCommand(
+                CommandAddrUtil.getWriteCtrlAddr(), parameterCtrl).toByteArray());
         sendData(ctrlWrapper);
     }
 
@@ -110,12 +124,11 @@ public class CounterService {
      * Starting measurement process
      */
     public void startMeasrumentProcess() {
-
-        MessageWrapper startMeasurment = new MessageWrapper(CommandAddresses.getWriteMeasurementAddr().toByteArray());
+        MessageWrapper startMeasurment = new MessageWrapper(CommandAddrUtil.getWriteMeasurementAddr().toByteArray());
         sendData(startMeasurment);
 
-        MessageWrapper startReceingData = new MessageWrapper(CommandAddresses.getReadDataAddr().toByteArray());
-        sendData(startReceingData);
-
+        MessageWrapper startRecevingData = new MessageWrapper(CommandAddrUtil.getReadDataAddr().toByteArray());
+        sendData(startRecevingData);
     }
+
 }
