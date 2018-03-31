@@ -6,113 +6,9 @@
 <div class="control-group">
 
     <div id="params">
-        <div id="sParamsDiv">
-            <!--by default first value is true second is false-->
-            <form id="startInputForm">
-                Start input:
-                <label class="control control-radio">
-                    A
-                    <input type="radio" name="startInput" checked="checked" value="true"/>
-                    <div class="control_indicator"></div>
-                </label>
-                <label class="control control-radio">
-                    B
-                    <input type="radio" name="startInput" value="false"/>
-                    <div class="control_indicator"></div>
-                </label>
-            </form>
-
-            <form id="startSloteForm">
-                Start slote:
-                <label class="control control-radio">
-                    Rising
-                    <input type="radio" name="startSlote" checked="checked" value="true"/>
-                    <div class="control_indicator"></div>
-                </label>
-                <label class="control control-radio">
-                    Falling
-                    <input type="radio" name="startSlote" value="false"/>
-                    <div class="control_indicator"></div>
-                </label>
-            </form>
-
-            <form id="stopInputForm">
-                Stop input:
-                <label class="control control-radio">
-                    A
-                    <input type="radio" name="stopInput" value="true"/>
-                    <div class="control_indicator"></div>
-                </label>
-                <label class="control control-radio">
-                    B
-                    <input type="radio" name="stopInput" checked="checked" value="false"/>
-                    <div class="control_indicator"></div>
-                </label>
-            </form>
-
-            <form id="stopSloteForm">
-                Stop slote:
-                <label class="control control-radio">
-                    Rising
-                    <input type="radio" name="stopSlote" checked="checked" value="true"/>
-                    <div class="control_indicator"></div>
-                </label>
-                <label class="control control-radio">
-                    Falling
-                    <input type="radio" name="stopSlote" value="false"/>
-                    <div class="control_indicator"></div>
-                </label>
-            </form>
-
-            <form id="clockInternalForm">
-                Clock internal:
-                <label class="control control-radio">
-                    Yes
-                    <input type="radio" name="clockInternal" checked="checked" value="true"/>
-                    <div class="control_indicator"></div>
-                </label>
-                <label class="control control-radio">
-                    No
-                    <input type="radio" name="clockInternal" value="false"/>
-                    <div class="control_indicator"></div>
-                </label>
-            </form>
-            <!--// information bits-->
-            <!--<form id="calibratedForm">-->
-            <!--Is calibrated:-->
-            <!--<label class="control control-radio">-->
-            <!--Yes-->
-            <!--<input type="radio" name="calibrated" checked="checked" value="true"/>-->
-            <!--<div class="control_indicator"></div>-->
-            <!--</label>-->
-            <!--<label class="control control-radio">-->
-            <!--No-->
-            <!--<input type="radio" name="calibrated" value="false"/>-->
-            <!--<div class="control_indicator"></div>-->
-            <!--</label>-->
-            <!--</form>-->
-
-            <!--<form id="enEndForm">-->
-            <!--Is measure finished:-->
-            <!--<label class="control control-radio">-->
-            <!--Yes-->
-            <!--<input type="radio" name="enEnd" checked="checked" value="true"/>-->
-            <!--<div class="control_indicator"></div>-->
-            <!--</label>-->
-            <!--<label class="control control-radio">-->
-            <!--Yes-->
-            <!--<input type="radio" name="enEnd" value="false"/>-->
-            <!--<div class="control_indicator"></div>-->
-            <!--</label>-->
-            <!--</form>-->
-
-            <a class="btn" id="confirmConfig" href="#">Save configuration</a>
-            <p id="saveResultMessage">:)</p>
-            <a class="btn" id="readFromSregister" href="#">Read configuration</a>
-            <p id="readResultMessage">:)</p>
-
+        <div id="paramFragment">
+            <div th:include="/fragments/paramS :: paramS"></div>
         </div>
-
         <div id="ctrlParamsDiv">
             <div id="timeRange">
                 <form id="timeRangeForm">
@@ -162,56 +58,9 @@
         </div>
     </div>
 
-    <a class="btn" id="paramVisibleBtn" href="#">Show parameters</a>
 </div>
 </body>
 <script>
-    $("#params").hide();
-
-    $("#paramVisibleBtn").click(function () {
-        var dd = $("#params");
-        if (dd.is(':visible')) {
-            dd.slideUp("medium");
-            $("#paramVisibleBtn").text("Show parameters");
-        } else {
-            dd.slideDown("medium");
-            $("#paramVisibleBtn").text("Hide parameters");
-        }
-    });
-
-    /**
-     *
-     */
-    $("#confirmConfig").click(function () {
-        var params = {
-            startInput: $('input[name=startInput]:checked', '#startInputForm').val(),
-            startSlote: $('input[name=startSlote]:checked', '#startSloteForm').val(),
-            stopInput: $('input[name=stopInput]:checked', '#stopInputForm').val(),
-            stopSlote: $('input[name=stopSlote]:checked', '#stopSloteForm').val(),
-            clockInternal: $('input[name=clockInternal]:checked', '#clockInternalForm').val(),
-            timeRange: $('input[name=timeRange]:checked', '#timeRangeForm').val(),
-            entrance: $('input[name=entrance]:checked', '#entranceForm').val()
-        };
-        console.log(params);
-        $.ajax({
-            url: "/saveParams",
-            type: "POST",
-            dataType: 'text',
-            contentType: 'application/json',
-            cache: false,    //This will force requested pages not to be cached by the browser
-            processData: false, //To avoid making query String instead of JSON
-            data: JSON.stringify(params),
-            success: function (data) {
-//                $("#saveResultMessage").attr("value", "Saving success");
-                console.log("saveParams: " + data);
-                $("#saveResultMessage").text(data);
-            },
-            error: function (e) {
-                $("#saveResultMessage").text("Saving error => " + e);
-            }
-        })
-    });
-
     /**
      *
      */

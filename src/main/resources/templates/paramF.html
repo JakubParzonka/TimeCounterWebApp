@@ -1,8 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 </head>
 <body>
-<h1>IN PROGRESS</h1>
 </body>
+
+<div class="control-group">
+    <div id="params">
+        <div id="paramFragment">
+            <div th:include="/fragments/paramS :: paramS"></div>
+        </div>
+        <div id="measTime">
+            <form id="measTimeForm">
+                Measurment time:
+                <label class="control control-radio">
+                    0,1 ms
+                    <input type="radio" name="measTime" checked="checked" value="0,1ms"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    1 ms
+                    <input type="radio" name="measTime" value="1ms"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    10 ms
+                    <input type="radio" name="measTime" value="10ms"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    100 ms
+                    <input type="radio" name="measTime" value="100ms"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    1 s
+                    <input type="radio" name="measTime" value="1s"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    10 s
+                    <input type="radio" name="measTime" value="10s"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    1 us
+                    <input type="radio" name="measTime" value="1us"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    10 us
+                    <input type="radio" name="measTime" value="10 us"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    EXT
+                    <input type="radio" name="measTime" value="ext"/>
+                    <div class="control_indicator"></div>
+                </label>
+            </form>
+        </div>
+        <div id="inputEnt">
+            <form id="inputEntForm">
+                Choose input:
+                <label class="control control-radio">
+                    A
+                    <input type="radio" name="inputEnt" checked="checked" value="A"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    B
+                    <input type="radio" name="inputEnt" value="B"/>
+                    <div class="control_indicator"></div>
+                </label>
+                <label class="control control-radio">
+                    F
+                    <input type="radio" name="inputEnt" value="F"/>
+                    <div class="control_indicator"></div>
+                </label>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+</script>
 </html>

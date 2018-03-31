@@ -6,35 +6,36 @@
     <script src="js/jquery.js"></script>
     <script src="js/main.js"></script>
 </head>
-    <body>
-        <ul class="mode control-group" id="nav">
-            <form id="modeFrom">
-                Start input:
-                <label class="control control-radio" >
-                    Time intervals
-                    <input type="radio" name="mode" value="true" checked="checked"/>
-                    <div class="control_indicator"></div>
-                </label>
-                <label class="control control-radio">
-                    Frequency
-                    <input type="radio" name="mode" value="false" />
-                    <div class="control_indicator"></div>
-                </label>
-            </form>
+<body>
+<ul class="mode control-group" id="nav">
+    <form id="modeFrom">
+        Start input:
+        <label class="control control-radio">
+            Time intervals
+            <input type="radio" name="mode" value="true" checked="checked"/>
+            <div class="control_indicator"></div>
+        </label>
+        <label class="control control-radio">
+            Frequency
+            <input type="radio" name="mode" value="false"/>
+            <div class="control_indicator"></div>
+        </label>
+    </form>
 
 
-            <div id="measButtons" >
-                <a class="btn" id="startMeasButton" href="#">Start measurement</a>
-            </div>
-        </ul>
-        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        <div id="parameters"></div>
+    <div id="measButtons">
+        <a class="btn" id="startMeasButton" href="#">Start measurement</a>
+    </div>
+</ul>
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<div id="parameters"></div>
 
-        <div id="result">
-            <p id="resultValue">
-                xxxxxxxx
-            </p>
-        </div>
-            <!--<div th:replace="paramTI.html :: paramTI"></div>-->
-    </body>
+<div id="result">
+    <p id="resultValue">
+        xxxxxxxx
+    </p>
+</div>
+
+<a class="btn" id="paramVisibleBtn" href="#">Show parameters</a>
+</body>
 </html>

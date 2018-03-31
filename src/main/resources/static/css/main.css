@@ -63,11 +63,12 @@ h2 {
     clear: left;
 }
 
-#sParamsDiv {
+#sParamsDiv, #paramFragment, #measTime {
     display: inline-block;
+    padding-right: 10px;
 }
 
-#ctrlParamsDiv {
+#ctrlParamsDiv, #inputEnt {
     position: absolute;
     display: inline-block;
 }

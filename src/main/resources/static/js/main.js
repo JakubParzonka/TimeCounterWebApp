@@ -1,8 +1,20 @@
 $(document).ready(function () {
 
-    $('#parameters').load("paramTI.html");
+    $("#parameters").hide();
 
-    //TODO zaznaczony domyślnie radiobutton dla Ti
+    $("#paramVisibleBtn").click(function () {
+        var dd = $("#parameters");
+        if (dd.is(':visible')) {
+            dd.slideUp("medium");
+            $("#paramVisibleBtn").text("Show parameters");
+        } else {
+            dd.slideDown("medium");
+            $("#paramVisibleBtn").text("Hide parameters");
+        }
+    });
+
+    $("#parameters").load("paramTI.html");
+
     $("#modeFrom").on('change', function () {
         var mode = $('input[name=mode]:checked', '#modeFrom').val();
         var contentDiv = $('#parameters');
