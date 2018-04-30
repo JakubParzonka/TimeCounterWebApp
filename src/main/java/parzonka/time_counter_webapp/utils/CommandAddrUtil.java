@@ -24,7 +24,7 @@ public class CommandAddrUtil {
      */
     public static MessageWrapper getWriteResetAndACalibrationAddr() {
         // $00
-        MessageWrapper msgWrapper = new MessageWrapper(resetAndCalibration);
+        MessageWrapper msgWrapper = new MessageWrapper("Calibration",resetAndCalibration);
         logger.info("RESET register => " + msgWrapper.toString());
         return msgWrapper;
     }
@@ -61,6 +61,7 @@ public class CommandAddrUtil {
         // $03
         BitSet bs = new BitSet();
         bs.set(0, 2, true);
+        bs.set(39, true);
         logger.info("SET_EN register => " + bs.toString());
         return bs;
     }
@@ -85,7 +86,6 @@ public class CommandAddrUtil {
         // $F0
         BitSet bs = new BitSet();
         bs.set(4, 9, true);
-        bs.set(39, true);
         logger.info("RD_F_DATA register => " + bs.toString());
         return bs;
     }
@@ -98,7 +98,6 @@ public class CommandAddrUtil {
         BitSet bs = new BitSet();
         bs.set(1, true);
         bs.set(4, 9, true);
-        bs.set(39, true);
         logger.info("RD_S register => " + bs.toString());
         return bs;
     }

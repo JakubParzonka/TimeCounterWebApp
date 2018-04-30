@@ -22,8 +22,17 @@
             <a type="button" id="buttonFirst" onclick="writeFirst()" class="button_1_purple">
                 Write $03
             </a>
-            <a type="button" id="buttonSecond" onclick="writeSecond()" class="button_1_purple">
-                Write $F3
+            <a type="button" id="buttonSreg" onclick="sRegRead()" class="button_1_purple">
+                Write S reg #F2
+            </a>
+            <a type="button" id="buttonEnReg" onclick="enRegRead()" class="button_1_purple">
+                Write EN reg #F3
+            </a>
+            <a type="button" id="buttonCtrlRegRead" onclick="ctrlRegRead()" class="button_1_purple">
+                Write Ctrl Reg #F4
+            </a>
+            <a type="button" id="buttonOffsetRead" onclick="offsetRead()" class="button_1_purple">
+                Write OFFSET #F5
             </a>
             <a type="button" id="buttonRead" onclick="readData()" class="button_1_purple">
                 Read Data
@@ -62,10 +71,10 @@
             }
         });
     };
-    var writeSecond = function () {
+    var enRegRead = function () {
         $.ajax({
             type: "POST",
-            url: "/writeSecond",
+            url: "/enRegRead",
             dataType: 'text',
             timeout: 600000,
             success: function (data) {
@@ -73,7 +82,52 @@
                 console.log(data);
             },
             error: function (e) {
-                console.log("Error during writeSecond calling => " + e.toString());
+                console.log("Error during enRegRead calling => " + e.toString());
+            }
+        });
+    };
+    var sRegRead = function () {
+        $.ajax({
+            type: "POST",
+            url: "/sRegRead",
+            dataType: 'text',
+            timeout: 600000,
+            success: function (data) {
+                $("#buttonFirst").attr("value", data);
+                console.log(data);
+            },
+            error: function (e) {
+                console.log("Error during sRegRead calling => " + e.toString());
+            }
+        });
+    };
+    var ctrlRegRead = function () {
+        $.ajax({
+            type: "POST",
+            url: "/ctrlRegRead",
+            dataType: 'text',
+            timeout: 600000,
+            success: function (data) {
+                $("#buttonFirst").attr("value", data);
+                console.log(data);
+            },
+            error: function (e) {
+                console.log("Error during ctrlRegRead calling => " + e.toString());
+            }
+        });
+    };
+    var offsetRead = function () {
+        $.ajax({
+            type: "POST",
+            url: "/offsetRead",
+            dataType: 'text',
+            timeout: 600000,
+            success: function (data) {
+                $("#buttonFirst").attr("value", data);
+                console.log(data);
+            },
+            error: function (e) {
+                console.log("Error during offsetRead calling => " + e.toString());
             }
         });
     };

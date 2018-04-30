@@ -84,7 +84,7 @@ h2 {
     display: inline-block;
 }
 
-#measButtons {
+#measAndCallButtons {
     position: absolute;
     display: inline-block;
     float: right;

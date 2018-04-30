@@ -45,6 +45,25 @@ $(document).ready(function () {
             }
         })
     });
+
+    $("#startCalibrationButton").click(function () {
+        $.ajax({
+            url: "/startCalibration",
+            type: "POST",
+            dataType: 'text',
+            contentType: 'application/json',
+            cache: false,    //This will force requested pages not to be cached by the browser
+            processData: false, //To avoid making query String instead of JSON
+            // data: JSON.stringify(params),
+            success: function (data) {
+                $("#resultValue").text(data);
+                console.log("startCalibration: " + data);
+            },
+            error: function (e) {
+                $("#resultValue").text("Wrong value: " + e);
+            }
+        })
+    });
 });
 
 

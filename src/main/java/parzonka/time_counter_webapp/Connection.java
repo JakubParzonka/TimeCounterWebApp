@@ -11,7 +11,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 
 
 @Service
@@ -29,19 +31,19 @@ public class Connection {
 
     @Autowired
     CounterService counterService;
-//
-//    @Bean
-//    private Socket prepareSocket() {
-//        try {
-//            counterSocket = new Socket(InetAddress.getByName(IP_ADDRESS), PORT_NUMBER);
-//            counterSocket.setKeepAlive(true);
+
+    @Bean
+    private Socket prepareSocket() {
+        try {
+            counterSocket = new Socket(InetAddress.getByName(IP_ADDRESS), PORT_NUMBER);
+            counterSocket.setKeepAlive(true);
 //            counterService.startCounter();
-//            logger.info("Socket connected");
-//        } catch (IOException e) {
-//            logger.error("Socket exception", e);
-//        }
-//        return counterSocket;
-//    }
+            logger.info("Socket connected");
+        } catch (IOException e) {
+            logger.error("Socket exception", e);
+        }
+        return counterSocket;
+    }
 
 
     /**
