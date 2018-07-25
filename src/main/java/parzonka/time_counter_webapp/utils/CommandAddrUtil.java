@@ -25,7 +25,6 @@ public class CommandAddrUtil {
     public static MessageWrapper getWriteResetAndACalibrationAddr() {
         // $00
         MessageWrapper msgWrapper = new MessageWrapper("Calibration",resetAndCalibration);
-        logger.info("RESET register => " + msgWrapper.toString());
         return msgWrapper;
     }
 
@@ -38,7 +37,6 @@ public class CommandAddrUtil {
         BitSet bs = new BitSet();
         bs.set(0, true);
         bs.set(39, true);
-        logger.info("MEAS register => " + bs.toString());
         return bs;
     }
 
@@ -50,7 +48,6 @@ public class CommandAddrUtil {
         BitSet bs = new BitSet();
         bs.set(1, true);
         bs.set(39, true);
-        logger.info("SET_S register => " + bs.toString());
         return bs;
     }
 
@@ -62,7 +59,6 @@ public class CommandAddrUtil {
         BitSet bs = new BitSet();
         bs.set(0, 2, true);
         bs.set(39, true);
-        logger.info("SET_EN register => " + bs.toString());
         return bs;
     }
 
@@ -75,7 +71,6 @@ public class CommandAddrUtil {
         bs.set(2, true);
         bs.set(13, true);
         bs.set(39, true);
-        logger.info("SET_CTRL register => " + bs.toString());
         return bs;
     }
 
@@ -86,7 +81,6 @@ public class CommandAddrUtil {
         // $F0
         BitSet bs = new BitSet();
         bs.set(4, 9, true);
-        logger.info("RD_F_DATA register => " + bs.toString());
         return bs;
     }
 
@@ -98,7 +92,6 @@ public class CommandAddrUtil {
         BitSet bs = new BitSet();
         bs.set(1, true);
         bs.set(4, 9, true);
-        logger.info("RD_S register => " + bs.toString());
         return bs;
     }
 
@@ -110,7 +103,6 @@ public class CommandAddrUtil {
         BitSet bs = new BitSet();
         bs.set(0, 2, true);
         bs.set(4, 9, true);
-        logger.info("RD_EN register => " + bs.toString());
         return bs;
     }
 
@@ -122,7 +114,6 @@ public class CommandAddrUtil {
         BitSet bs = new BitSet();
         bs.set(2, true);
         bs.set(4, 9, true);
-        logger.info("RD_CTRL register => " + bs.toString());
         return bs;
     }
 

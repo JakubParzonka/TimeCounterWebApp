@@ -8,38 +8,44 @@
     <script th:src="@{/js/jquery.js}"></script>
     <script th:src="@{/js/test.js}"></script>
 </head>
-    <body>
-        <div class="container">
-            <div class="starter-template">
-                <h1>Time Counter Controller Web App</h1>
-                <h2>
-                    <span th:text="'Message: ' + ${welcome}"></span>
-                </h2>
-            </div>
-            <a type="button" id="buttonStart" onclick="startAndReset()" class="button_1_purple">
-                Start
-            </a>
-            <a type="button" id="buttonFirst" onclick="writeFirst()" class="button_1_purple">
-                Write $03
-            </a>
-            <a type="button" id="buttonSreg" onclick="sRegRead()" class="button_1_purple">
-                Write S reg #F2
-            </a>
-            <a type="button" id="buttonEnReg" onclick="enRegRead()" class="button_1_purple">
-                Write EN reg #F3
-            </a>
-            <a type="button" id="buttonCtrlRegRead" onclick="ctrlRegRead()" class="button_1_purple">
-                Write Ctrl Reg #F4
-            </a>
-            <a type="button" id="buttonOffsetRead" onclick="offsetRead()" class="button_1_purple">
-                Write OFFSET #F5
-            </a>
-            <a type="button" id="buttonRead" onclick="readData()" class="button_1_purple">
-                Read Data
-            </a>
-            <input type="text" value="..." id="dataFromCounter"/>
-        </div>
-    </body>
+<body>
+<div class="container">
+    <div class="starter-template">
+        <h1 id="goBackToTheWornderland">Time Counter Controller Web App</h1>
+        <h2>
+            <span th:text="'Message: ' + ${welcome}"></span>
+        </h2>
+    </div>
+    <a type="button" id="buttonStart" onclick="startAndReset()" class="button_1_purple">
+        Start
+    </a>
+    <a type="button" id="buttonFirst" onclick="writeFirst()" class="button_1_purple">
+        Write $03
+    </a>
+    <a type="button" id="buttonFifoMemReg" onclick="fifoRegRead()" class="button_1_purple">
+        FIFO mem #F0
+    </a>
+    <a type="button" id="buttonMeasNoReg" onclick="measNoRead()" class="button_1_purple">
+        MEAS NO #F1
+    </a>
+    <a type="button" id="buttonSreg" onclick="sRegRead()" class="button_1_purple">
+        S #F2
+    </a>
+    <a type="button" id="buttonEnReg" onclick="enRegRead()" class="button_1_purple">
+        EN #F3
+    </a>
+    <a type="button" id="buttonCtrlRegRead" onclick="ctrlRegRead()" class="button_1_purple">
+        Ctrl #F4
+    </a>
+    <a type="button" id="buttonOffsetRead" onclick="offsetRead()" class="button_1_purple">
+        OFFSET #F5
+    </a>
+    <a type="button" id="buttonRead" onclick="readData()" class="button_1_purple">
+        Read Data
+    </a>
+    <input type="text" value="..." id="dataFromCounter"/>
+</div>
+</body>
 <script>
     var writeFirst = function () {
         $.ajax({
@@ -71,10 +77,10 @@
             }
         });
     };
-    var enRegRead = function () {
+    var fifoRegRead = function () {
         $.ajax({
             type: "POST",
-            url: "/enRegRead",
+            url: "/fifoRegRead",
             dataType: 'text',
             timeout: 600000,
             success: function (data) {
@@ -82,7 +88,7 @@
                 console.log(data);
             },
             error: function (e) {
-                console.log("Error during enRegRead calling => " + e.toString());
+                console.log("Error during measNoRead calling => " + e.toString());
             }
         });
     };
@@ -101,6 +107,22 @@
             }
         });
     };
+    var enRegRead = function () {
+        $.ajax({
+            type: "POST",
+            url: "/enRegRead",
+            dataType: 'text',
+            timeout: 600000,
+            success: function (data) {
+                $("#buttonFirst").attr("value", data);
+                console.log(data);
+            },
+            error: function (e) {
+                console.log("Error during enRegRead calling => " + e.toString());
+            }
+        });
+    };
+
     var ctrlRegRead = function () {
         $.ajax({
             type: "POST",
@@ -131,6 +153,21 @@
             }
         });
     };
+    var measNoRead = function () {
+        $.ajax({
+            type: "POST",
+            url: "/measNoRead",
+            dataType: 'text',
+            timeout: 600000,
+            success: function (data) {
+                $("#buttonFirst").attr("value", data);
+                console.log(data);
+            },
+            error: function (e) {
+                console.log("Error during measNoRead calling => " + e.toString());
+            }
+        });
+    };
     var readData = function () {
         $.ajax({
             type: "POST",
@@ -146,7 +183,9 @@
             }
         });
     };
-
+    $("#goBackToTheWornderland").click(function () {
+        window.location.replace("counter.html");
+    });
 
 </script>
 </html>

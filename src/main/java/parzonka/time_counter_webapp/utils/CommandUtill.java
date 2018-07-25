@@ -39,7 +39,7 @@ public class CommandUtill {
         command.set(15, parameters[2].equals("false"));
         command.set(16, parameters[3].equals("true"));
         command.set(19, parameters[4].equals("true"));
-        logger.info("Command value: " + command.toString());
+        //logger.info("Command value: " + command.toString());
         return command;
     }
 
@@ -77,7 +77,7 @@ public class CommandUtill {
             default:
                 logger.error("Wrong time range value.It's imposibru so check this dude!!!!!!!");
         }
-        logger.info("Command value: " + command.toString());
+        //logger.info("Command value: " + command.toString());
         return command;
     }
 

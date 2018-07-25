@@ -77,15 +77,11 @@ public class CounterController {
     @RequestMapping(value = "/startMeasurement", method = RequestMethod.POST)
     public @ResponseBody
     String startMeasurement() throws InterruptedException {
-        counterService.startMeasurumentProcess();
-        byte[] buffer;
-        String readResult = "";
-        while (true) {
-            buffer = counterService.readData();
-            readResult = resultService.calculationOfTheMeasurementResult(buffer);
-            logger.info(readResult);
-            return readResult;
-        }
+        String readResult = counterService.startMeasurumentProcess();
+//        byte[] buffer = counterService.readData();
+//        readResult = resultService.calculationOfTheMeasurementResult(buffer);
+//        logger.info(readResult);
+        return readResult;
     }
 
     @RequestMapping(value = "/startCalibration", method = RequestMethod.POST)

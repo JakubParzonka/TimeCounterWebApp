@@ -64,6 +64,12 @@ $(document).ready(function () {
             }
         })
     });
+
+
+    $("#secretDoors").click(function () {
+        window.location.replace("test.html");
+    });
+
 });
 
 

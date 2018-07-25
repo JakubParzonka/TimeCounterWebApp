@@ -46,7 +46,6 @@ public class CounterService {
      * Restart and calibrate counter
      */
     public void calibrate() {
-
         sendData(CommandAddrUtil.getWriteResetAndACalibrationAddr());
 //        byte[] b1;
 //        byte[] b2;
@@ -82,7 +81,7 @@ public class CounterService {
                 DataOutputStream output = new DataOutputStream(connection.getOutputDataStream());
                 output.write(messageWrapper.getMessage(), 0, messageWrapper.getLength());
                 output.flush();
-                logger.info(messageWrapper.getName() + " : " + Arrays.toString(messageWrapper.getMessage()));
+                logger.info("SENDING " + messageWrapper.getName() + " : " + Arrays.toString(messageWrapper.getMessage()));
             } catch (IOException e) {
                 logger.error("Sending operation failed", e);
             }
@@ -96,23 +95,23 @@ public class CounterService {
      *
      * @return String representation of result
      */
-    public byte[] readData() {
+    public byte[] readData(int samples) {
         try {
             Thread.sleep(75);
         } catch (InterruptedException e) {
             logger.error("Error while waiting 75 ms ", e);
         }
         ByteArrayOutputStream bufferStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[64]; // todo wyczytać w jakim rozmiarze jest przesyłany wynik i taki ustawić rozmiar
+        byte[] buffer = new byte[samples]; // todo wyczytać w jakim rozmiarze jest przesyłany wynik i taki ustawić rozmiar
         if (x == 1) {
             try {
                 DataInputStream inputData = new DataInputStream(connection.getInputDataStream());
                 if (inputData.available() > 0) {
                     int bytesRead = inputData.read(buffer);
                     bufferStream.write(buffer, 0, bytesRead);
-                    if (inputData.available() == 0) {
-                        logger.warn("Input data available is 0");
-                    }
+//                    if (inputData.available() == 0) {
+//                        logger.warn("Input data available is 0");
+//                    }
                 } else {
                     logger.error("Input data is not availble");
                 }
@@ -141,6 +140,11 @@ public class CounterService {
         MessageWrapper ctrlWrapper = new MessageWrapper("CTRL register", CommandUtill.mapTimeCtrlCommand(
                 CommandAddrUtil.getWriteCtrlAddr(), parameterCtrl).toByteArray());
         sendData(ctrlWrapper);
+
+        RegistersService registersService = new RegistersService(this);
+        registersService.sRegisterReadData();
+        registersService.ctrlRegisterReadData();
+        registersService.offsetRegisterReadData();
     }
 
     /**
@@ -159,19 +163,43 @@ public class CounterService {
         MessageWrapper ctrlWrapper = new MessageWrapper("CTRL register", CommandUtill.mapFrequencyCtrlCommand(
                 CommandAddrUtil.getWriteCtrlAddr(), parameterCtrl).toByteArray());
         sendData(ctrlWrapper);
+
+        RegistersService registersService = new RegistersService(this);
+        registersService.sRegisterReadData();
+        registersService.ctrlRegisterReadData();
+        registersService.offsetRegisterReadData();
     }
 
     /**
      * Starting measurement process
      */
-    public void startMeasurumentProcess() {
-        byte[] meas = {CommandAddrUtil.getWriteMeasurementAddr().toByteArray()[0], 0x01, 0x00, 0x00, 0x00};
+    public String startMeasurumentProcess() {
+        String result;
+        byte[] setDacArray1 = {0x05, (byte) 0x80, (byte) 0x80, 0x00, 0x00};
+        byte[] setDacArray2 = {0x05, (byte) 0x80, (byte) 0x80, (byte) 0xF5, 0x03};
+        byte[] setStopArray1 = {0x06, 0x10, (byte) 0xc2, 0x4d, 0x00, 0x04, 0x23, 0x00, 0x00, 0x00, 0x02, (byte) 0xcc, 0x04, 0x00, 0x00, 0x03, 0x04, 0x00, 0x00, 0x00};
+        byte[] setStopArray2 = {0x06, 0x68, (byte) 0xc8, 0x64, (byte) 0x99, 0x04, 0x23, 0x00, 0x00, 0x00, 0x02, (byte) 0xcc, 0x04, 0x00, 0x00, 0x03, 0x04, 0x00, 0x00, 0x00};
 
+        sendData(new MessageWrapper("SET DAC 1", setDacArray1));
+        sendData(new MessageWrapper("SET DELAY 1", setStopArray1));
+        sendData(new MessageWrapper("SET DAC 2", setDacArray2));
+        sendData(new MessageWrapper("SET DELAY 2", setStopArray2));
+
+        byte[] meas = {CommandAddrUtil.getWriteMeasurementAddr().toByteArray()[0], 0x00, 0x00, 0x00, 0x00};
         MessageWrapper startMeasurment = new MessageWrapper("MEAS register", meas);
         sendData(startMeasurment);
 
-        MessageWrapper startRecevingData = new MessageWrapper("FIFO memory", CommandAddrUtil.getReadDataAddr().toByteArray());
-        sendData(startRecevingData);
+        RegistersService registersService = new RegistersService(this);
+        String measruementNumbers = registersService.measNoRegisterReadData();
+
+
+//        byte[] fifo = {CommandAddrUtil.getReadDataAddr().toByteArray()[0], 0x02, 0x00, 0x00, 0x00};
+//        MessageWrapper startRecevingData = new MessageWrapper("FIFO memory", CommandAddrUtil.getReadDataAddr().toByteArray());
+//        sendData(startRecevingData);
+
+
+        result = registersService.fifoRegisterReadData("FIFO memory");
+        return result;
     }
 
 }

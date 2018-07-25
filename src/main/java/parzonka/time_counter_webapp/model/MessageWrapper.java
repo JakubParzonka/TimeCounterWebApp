@@ -1,6 +1,7 @@
 package parzonka.time_counter_webapp.model;
 
 import java.util.Arrays;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,8 +19,10 @@ public class MessageWrapper {
     @Setter
     @Getter
     private String name;
-    public MessageWrapper(String name,byte[] message) {
+
+    public MessageWrapper(String name, byte[] message) {
         this.message = message;
+        this.name = name;
     }
 
     public int getLength() {
